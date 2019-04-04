@@ -1,0 +1,8 @@
+#!/bin/bash
+set -e
+
+CMD=<%= node['dela']['base_dir'] %>/bin/generic_stop.sh  
+SERVICE_NAME=dela
+PID_FILE=<%= node['dela']['pid_file'] %>
+
+$CMD $SERVICE_NAME $PID_FILE

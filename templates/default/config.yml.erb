@@ -1,0 +1,53 @@
+server:
+  applicationConnectors:
+    - type: http
+      port: <%= node['dela']['http_port'] %>
+  adminConnectors:
+    - type: http
+      port: <%= node['dela']['http_admin_port'] %>
+jerseyClient:
+  connectionTimeout: 2000 ms
+  tls:
+    trustSelfSignedCertificates: true
+    verifyHostname: false
+
+logging:
+
+  # The default level of all loggers. Can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL.
+  level: <%= node['dela']['log_level'] %>
+
+  # Logger-specific levels.
+  loggers:
+    "javax.management": WARN
+    "org.eclipse.jetty": WARN
+    "com.sun.jersey": WARN
+    "org.hibernate": WARN
+    "com.yammer.dropwizard.config": INFO
+    "com.barchart.udt": WARN
+    
+    "Kompics": WARN
+    "se.sics.kompics": WARN
+    "se.sics.dozy": INFO 
+    "se.sics.gvod.stream.torrent.TorrentComp": INFO
+    "se.sics.gvod.stream.congestion.PullLedbat": WARN
+    "se.sics.gvod.stream.report.ReportComp": WARN
+    "se.sics.nat.stun.client.StunClientComp": WARN
+    "NettyNetwork@<%= node['dela']['port'] %>": WARN
+    "NettyNetwork@<%= node['dela']['stun_port1'] %>": WARN
+    "NettyNetwork@<%= node['dela']['stun_port2'] %>": WARN
+    "se.sics.ktoolbox.hops.managedStore.storage.HDFSHelper": INFO
+    "se.sics.dozy": DEBUG
+    "se.sics.ktoolbox.hops.managedStore.storage.cache.HDFSReadCacheImpl": INFO
+    "se.sics.nstream.library.LibraryMngrComp": INFO
+    "se.sics.nstream.storage.cache.KCache": INFO
+    "se.sics.nstream.torrent.TransferFSM": INFO
+    "se.sics.nstream.hops.hdfs.HDFSComp": INFO
+    "se.sics.nstream.hops.hdfs.HDFSHelper": INFO
+    "se.sics.nstream.report.ReportComp": INFO    
+    
+  appenders:
+    - type: file
+      currentLogFilename: <%= node['dela']['logs'] %>
+      archivedLogFilenamePattern: <%= node['dela']['base_dir'] %>/dela-%d.log
+      archivedFileCount: 10
+

@@ -1,0 +1,47 @@
+system {
+    seed = <%= node['dela']['seed'] %>
+    port = <%= node['dela']['port'] %>
+    id = <%= node['dela']['id'] %>
+}
+network {
+   ipType = "PRIVATE"
+}
+stun {
+    client {
+        address {
+            port1 = <%= node['dela']['stun_port1'] %>
+            port2 = <%= node['dela']['stun_port2'] %>
+        }
+    }
+}
+nat.detection.stunView {
+    server {
+        ip = "<%= @stun1_ip %>"
+        port1 = <%= node['dela']['stun_server_port1'] %>
+        port2 = <%= node['dela']['stun_server_port2'] %>
+        id = "<%= @stun1_id %>"
+    }
+    partner {
+        ip = "<%= @stun2_ip %>"
+        port1 = <%= node['dela']['stun_server_port1'] %>
+        port2 = <%= node['dela']['stun_server_port2'] %>
+        id = "<%= @stun2_id %>"
+    }
+}
+
+hops.storage.type = <%= node['dela']['hops']['storage']['type'] %>
+hops.library.type = <%= node['dela']['hops']['library']['type'] %>
+
+<% if node['dela']['hops']['library']['type'] == "MYSQL" %>
+hops.library.mysql.ip = <%= @mysqlIp %>
+hops.library.mysql.port = <%= @mysqlPort %>
+hops.library.mysql.user = <%= node['mysql']['user'] %>
+hops.library.mysql.password = <%= node['mysql']['password'] %>
+<% end %> 
+
+<% if @reportType == "disk" %>
+report.dir = "<%= @reportURI %>"
+<% end %> 
+<% if @reportType == "tracker" %>
+report.tracker = "<%= @reportURI %>"
+<% end %>  

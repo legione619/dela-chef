@@ -1,0 +1,4 @@
+dependencies:
+  - recipe: dela::default
+    global:
+      - kagent::default
