@@ -3,7 +3,7 @@ maintainer       "Alex Ormenisan"
 maintainer_email "aaor@kth.se"
 license          "Apache v2.0"
 description      'Installs/Configures/Runs dela'
-version          "1.2.0"
+version          "2.2.0"
 
 recipe            "dela::install",      "Install dela binaries"
 recipe            "dela::default",      "Basic dela recipe"
@@ -14,10 +14,10 @@ recipe            "dela::purge",        "Stops the dela server and deletes all i
   supports os
 end
 
-depends "kagent"
-depends "java"
-depends "ndb"
-depends "hops"
+depends "java", '~> 7.0.0'
+depends 'kagent'
+depends 'conda'
+depends 'hops'
 
 ##### karamel/chef
 attribute "java/jdk_version",
